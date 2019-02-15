@@ -1,0 +1,88 @@
+<h1>{{ title }}</h1>
+
+<!-- this creates a google map on the page with the given lat/lng from -->
+<!-- the component as the initial center of the map: -->
+<agm-map
+  [latitude]="lat"
+  [longitude]="lng"
+  [zoom]="zoom"
+  [disableDefaultUI]=false
+  [zoomControl]="false" (mapClick)="mapClicked($event)">
+  <agm-direction [origin]="origin" [destination]="destination">
+  </agm-direction>
+  <agm-marker
+    *ngFor="let m of markers; let i = index"
+    (markerClick)="clickedMarker (m,i)"
+    [latitude]="m.lat"
+    [longitude]="m.lng"
+    [markerDraggable]="m.draggable"
+    (dragEnd)="markerDragEnd(m, $event)">
+    <agm-info-window>
+      {{m.name}}
+      <br>
+      <button>
+        <a class="deleteMarker" (click)="deleteMarker(m.id)">Delete</a>
+      </button>
+      <!--<button>-->
+        <!--<a class="updateMarker" (click)="updateMarker(m.id)">Update</a>-->
+      <!--</button>-->
+    </agm-info-window>
+  </agm-marker>
+</agm-map>
+
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">add new marker</h3>
+    </div>
+    <div class="panel-body">
+      <form (submit)= "addMarker()">
+        <label>LocationName</label>
+        <input type="text" [(ngModel)]="address" (setAddress)="getAddress($event)" name="markerName" googleplace>
+
+        <label>Latitude</label>
+        <input type="text" [(ngModel)]="markerLat" name="markerLat">
+
+        <label>Longitude</label>
+        <input type="text" [(ngModel)]="markerLng" name="markerLng">
+
+        <label>Draggable</label>
+        <select [(ngModel)]="markerDraggable" name="markerDraggable">
+          <option value="No">No</option>
+          <option value="Yes">Yes</option>
+        </select>
+        <input type="submit" value="Place Marker!">
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Directions</h3>
+    </div>
+    <div class="panel-body">
+      <form (submit)= "getDirection()">
+        <label>Origin</label>
+        <input type="text" [(ngModel)]="originName" name="originName">
+
+        <label>Latitude</label>
+        <input type="text" [(ngModel)]="originLat" name="originLat">
+
+        <label>Longitude</label>
+        <input type="text" [(ngModel)]="originLng" name="originLng">
+        <br>
+        <label>Destination</label>
+        <input type="text" [(ngModel)]="destName" name="destinationName">
+
+        <label>Latitude</label>
+        <input type="text" [(ngModel)]="destLat" name="destinationLat">
+
+        <label>Longitude</label>
+        <input type="text" [(ngModel)]="destLng" name="destinationLng">
+        <input type="submit" value="Get Location!">
+      </form>
+    </div>
+  </div>
+</div>
