@@ -1,0 +1,169 @@
+<h1>{{ title }}</h1>
+
+<div class="pos-f-t">
+  <div class="collapse" id="navbarToggleExternalContent">
+    <div class="bg-dark p-4">
+      <button type="button" class="btn btn-outline-light">Review</button>
+      <br>
+      <button type="button" class="btn btn-outline-light">Account</button>
+    </div>
+  </div>
+  <nav class="navbar navbar-dark bg-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </nav>
+</div>
+
+<!-- this creates a google map on the page with the given lat/lng from -->
+<!-- the component as the initial center of the map: -->
+<agm-map
+  [latitude]="lat"
+  [longitude]="lng"
+  [zoom]="zoom"
+  [disableDefaultUI]=false
+  [zoomControl]="false" (mapClick)="mapClicked($event)">
+  <agm-direction [origin]="origin" [destination]="destination">
+  </agm-direction>
+  <agm-marker
+    *ngFor="let m of markers; let i = index"
+    (markerClick)="clickedMarker (m,i)"
+    [latitude]="m.lat"
+    [longitude]="m.lng"
+    [markerDraggable]="m.draggable"
+    (dragEnd)="markerDragEnd(m, $event)">
+    <agm-info-window>
+      {{m.name}}
+      <br>
+      <button>
+        <a class="deleteMarker" (click)="deleteMarker(m.id)">Delete</a>
+      </button>
+    </agm-info-window>
+  </agm-marker>
+</agm-map>
+
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">add new marker</h3>
+    </div>
+    <div class="panel-body">
+      <form (submit)= "addMarker()">
+        <label>LocationName</label>
+        <input type="text" [(ngModel)]="address" (setAddress)="getAddress($event)" name="address" googleplace>
+
+        <label>Latitude</label>
+        <input type="text" [(ngModel)]="locationService.latitude" name="markerLat">
+
+        <label>Longitude</label>
+        <input type="text" [(ngModel)]="locationService.longitude" name="markerLng">
+
+        <label>Draggable</label>
+        <select [(ngModel)]="markerDraggable" name="markerDraggable">
+          <option value="No">No</option>
+          <option value="Yes">Yes</option>
+        </select>
+        <input type="submit" value="Place Marker!">
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Directions</h3>
+    </div>
+    <div class="panel-body">
+      <form (submit)= "getDirection()">
+        <label>Origin</label>
+        <input type="text" [(ngModel)]="addressOrigin" (setAddress)="getAddressOrigin($event)" name="addressDirection" googleplace>
+
+        <label>Latitude</label>
+        <input type="text" [(ngModel)]="locationService.latitudeOrigin" name="originLat">
+
+        <label>Longitude</label>
+        <input type="text" [(ngModel)]="locationService.longitudeOrigin" name="originLng">
+        <br>
+        <label>Destination</label>
+        <input type="text" [(ngModel)]="addressDest" (setAddress)="getAddressDest($event)" name="addressDirection" googleplace>
+
+        <label>Latitude</label>
+        <input type="text" [(ngModel)]="locationService.latitudeDest" name="destinationLat">
+
+        <label>Longitude</label>
+        <input type="text" [(ngModel)]="locationService.longitudeDest" name="destinationLng">
+        <input type="submit" value="Get Location!">
+      </form>
+    </div>
+  </div>
+</div>
+
+<!--<div class="container-fluid bg-light py-3">-->
+<!--<form id="contact-form" method="post" action="contact.php" role="form">-->
+<!--<div class="messages"></div>-->
+<!--<div class="controls">-->
+<!--<div class="row">-->
+<!--<div class="col-sm-4">-->
+<!--<div class="form-group">-->
+<!--<label for="form_name">Name *</label>-->
+<!--<input id="form_name" type="text" name="surname" class="form-control" placeholder="Please enter your name *" required="required" data-error="name is required.">-->
+<!--<div class="help-block with-errors"></div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="col-sm-4">-->
+<!--<div class="form-group">-->
+<!--<label> Location *</label>-->
+<!--<input class="form-control" type="text" [(ngModel)]="address" (setAddress)="getAddress($event)" name="addressDirection" googleplace>-->
+<!--<div class="help-block with-errors"></div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="col-sm-4">-->
+<!--<div class="form-group">-->
+<!--<label>Rating *</label>-->
+<!--<br>-->
+<!--<fieldset class="rating">-->
+<!--<input type="radio" [name]="ratingName" value="5" [checked]="rating===5" />-->
+<!--<label title="Great" (click)='onClick(5)'>5 stars</label>-->
+
+<!--<input type="radio" [name]="ratingName" value="4" [checked]="rating===4" />-->
+<!--<label title="Good" (click)='onClick(4)'>4 stars</label>-->
+
+<!--<input type="radio" [name]="ratingName" value="3" [checked]="rating===3" />-->
+<!--<label title="OK" (click)='onClick(3)'>3 stars</label>-->
+
+<!--<input type="radio" [name]="ratingName" value="2" [checked]="rating===2" />-->
+<!--<label title="Poor" (click)='onClick(2)'>2 stars</label>-->
+
+<!--<input type="radio" [name]="ratingName" value="1" [checked]="rating===1" />-->
+<!--<label title="Abysmal" (click)='onClick(1)'>1 star</label>-->
+<!--</fieldset>-->
+<!--<div class="help-block with-errors"></div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="clearfix"></div>-->
+
+<!--<div class="row">-->
+<!--<div class="col-md-12">-->
+<!--<div class="form-group">-->
+<!--<label for="form_message">Message *</label>-->
+<!--<textarea id="form_message" name="message" class="form-control" placeholder="Message for me *" rows="4" required="required" data-error="send a message."></textarea>-->
+<!--<div class="help-block with-errors"></div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="col-md-12">-->
+<!--<input type="submit" class="btn btn-warning btn-send" value="Send message">-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="row">-->
+<!--<div class="col-md-12">-->
+<!--<p class="text-muted"><strong>*</strong> These fields are required.</p>-->
+<!--</div>-->
+<!--</div>-->
+<!--</form>-->
+<!--</div>-->
+
+<script type="text/javascript" src="js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript" src="js/autocomplete.js"></script>

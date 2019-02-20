@@ -1,0 +1,25 @@
+<div class="singinbox" [hidden]="loggedInCorrect || loggedInIncorrect">
+  <form class="form-signin" style="" xmlns="http://www.w3.org/1999/html">
+    <br>
+    <label for="inputEmail" class="sr-only">Email address</label>
+
+    <input type="email" id="inputEmail" class="form-control" placeholder="Username" required autofocus #username>
+
+    <label for="inputPassword" class="sr-only">Password</label>
+
+    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required #password>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="validateUser(username.value, password.value)">Login</button>
+
+    <button class="btn btn-lg btn-primary btn-block" routerLink="registreren" type="submit">Sign up</button>
+    <p class="mt-5 mb-3 text-muted">David & Ruud inc.</p>
+  </form>
+</div>
+
+<div [hidden]="!loggedInCorrect">
+  <button class="btn btn-lg btn-primary btn-block" type="submit" routerLink="map"> Continue </button>
+</div>
+
+<div [hidden]="!loggedInIncorrect">
+  <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="resetFlags()"> Incorrect login go back </button>
+</div>
