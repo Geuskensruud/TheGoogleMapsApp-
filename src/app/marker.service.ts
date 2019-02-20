@@ -33,11 +33,4 @@ export class MarkerService {
       return of(result as T);
     };
   }
-  getLocation() {
-    return this.http.get<location>('http://api.ipapi.com/api/check?access_key=5d1c52d2a6c92e4d2a1d1a8bfd8d699f')
-  }
-}
-interface location {
-  markerLat: number;
-  markerLng: number;
 }
