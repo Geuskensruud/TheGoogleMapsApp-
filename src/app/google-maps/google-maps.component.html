@@ -33,7 +33,8 @@
     [markerDraggable]="m.draggable"
     (dragEnd)="markerDragEnd(m, $event)">
     <agm-info-window>
-      {{m.name}}
+      {{m.address}}
+      <app-marker-rating></app-marker-rating>
       <br>
       <button>
         <a class="deleteMarker" (click)="deleteMarker(m.id)">Delete</a>
@@ -122,22 +123,22 @@
 <!--<div class="form-group">-->
 <!--<label>Rating *</label>-->
 <!--<br>-->
-<!--<fieldset class="rating">-->
-<!--<input type="radio" [name]="ratingName" value="5" [checked]="rating===5" />-->
-<!--<label title="Great" (click)='onClick(5)'>5 stars</label>-->
+<fieldset class="rating">
+  <input type="radio" [name]="ratingName" value="5" [checked]="rating===5" />
+  <label title="Great" (click)='model.rating=5'>5 stars</label>
 
-<!--<input type="radio" [name]="ratingName" value="4" [checked]="rating===4" />-->
-<!--<label title="Good" (click)='onClick(4)'>4 stars</label>-->
+  <input type="radio" [name]="ratingName" value="4" [checked]="rating===4" />
+  <label title="Good" (click)='model.rating=4'>4 stars</label>
 
-<!--<input type="radio" [name]="ratingName" value="3" [checked]="rating===3" />-->
-<!--<label title="OK" (click)='onClick(3)'>3 stars</label>-->
+  <input type="radio" [name]="ratingName" value="3" [checked]="rating===3" />
+  <label title="OK" (click)='model.rating=3'>3 stars</label>
 
-<!--<input type="radio" [name]="ratingName" value="2" [checked]="rating===2" />-->
-<!--<label title="Poor" (click)='onClick(2)'>2 stars</label>-->
+  <input type="radio" [name]="ratingName" value="2" [checked]="rating===2" />
+  <label title="Poor" (click)='model.rating=2'>2 stars</label>
 
-<!--<input type="radio" [name]="ratingName" value="1" [checked]="rating===1" />-->
-<!--<label title="Abysmal" (click)='onClick(1)'>1 star</label>-->
-<!--</fieldset>-->
+  <input type="radio" [name]="ratingName" value="1" [checked]="rating===1" />
+  <label title="Abysmal" (click)='model.rating=1'>1 star</label>
+</fieldset>
 <!--<div class="help-block with-errors"></div>-->
 <!--</div>-->
 <!--</div>-->

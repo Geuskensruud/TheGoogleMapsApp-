@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {marker} from './app.component';
 import {HttpClient} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {catchError} from 'rxjs/operators';
+import {Marker} from './Marker';
 
 @Injectable({
   providedIn: 'root'
@@ -11,20 +11,19 @@ export class MarkerService {
 
   constructor(private http: HttpClient) { }
 
-
-  sendMarker(newMarker: marker){
+  sendMarker(newMarker: Marker){
     return this.http.post('http://localhost:8080/marker', newMarker).pipe(
-      catchError(this.handleError<marker>(`saveUser`))
+      catchError(this.handleError<Marker>(`saveUser`))
     );
   }
-  getMarker(): Observable<marker[]>  {
+  getMarker(): Observable<Marker[]>  {
     return this.http.get<any>('http://localhost:8080/marker').pipe(
-      catchError(this.handleError<marker>(`findAll`))
+      catchError(this.handleError<Marker>(`findAll`))
     );
   }
   deleteMarker(id) {
     return this.http.delete('http://localhost:8080/marker/' + id).pipe(
-      catchError(this.handleError<marker>(`delete`))
+      catchError(this.handleError<Marker>(`delete`))
     );
   }
   private handleError<T> (operation = 'operation', result?: T) {

@@ -1,6 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {LocationService} from '../location-service.service';
 import {MarkerService} from '../marker.service';
+import {Marker} from '../Marker';
+import {MarkerRating} from '../MarkerRating';
+
 
 // import {RatingService} from './rating.service';
 
@@ -26,9 +29,9 @@ export class GoogleMapsComponent implements OnInit{
   @Output() ratingClick: EventEmitter<any> = new EventEmitter<any>();
   ratingName: string;
 
-  markers: marker[] = [
-    {id: 0, name: this.address, lat: 52.509317, lng: 6.065663, draggable: true},
-    {id: 0, name: this.address, lat: 52.509317, lng: 8.065663, draggable: true}
+  markers: Marker[] = [
+    {id: 0, address: this.address, lat: 52.509317, lng: 6.065663, draggable: true},
+    {id: 0, address: this.address, lat: 52.509317, lng: 8.065663, draggable: true}
   ];
   // ratings: rating [] = [
   //   {  ratingName: this.ratingName, rating: this.rating, itemId: this.itemId}
@@ -39,8 +42,8 @@ export class GoogleMapsComponent implements OnInit{
   }
   ngOnInit() {
     this.markerService.getMarker().subscribe(
-      markers => {
-        this.markers = markers;
+      marker => {
+        this.markers = marker;
       },
       err => {
         console.log(err);
@@ -65,8 +68,8 @@ export class GoogleMapsComponent implements OnInit{
   //     rating: rating
   //   });
   // }
-  clickedMarker(marker: marker, index: number) {
-    console.log('Clicked Marker:' + marker.name + 'Index:' + index);
+  clickedMarker(marker: Marker, index: number) {
+    console.log('Clicked Marker:' + marker.address + 'Index:' + index);
   }
   // mapClicked($event: any) {
   //   const newMarker = {
@@ -91,18 +94,18 @@ export class GoogleMapsComponent implements OnInit{
 
   addMarker() {
     console.log('adding marker to david his head!');
-    let isdraggbale = true;
+    let isdraggable = true;
     if (this.markerDraggable == 'Yes') {
-      isdraggbale = true;
+      isdraggable = true;
     } else {
-      isdraggbale = false;
+      isdraggable = false;
     }
     const newMarker = {
       id: this.markerId,
-      name: this.address,
+      address: this.address,
       lat: parseFloat(this.locationService.latitude),
       lng: parseFloat(this.locationService.longitude),
-      draggable: isdraggbale
+      draggable: isdraggable,
     };
     this.markers.push(newMarker);
     // to backend
@@ -154,23 +157,8 @@ export class GoogleMapsComponent implements OnInit{
     this.locationService.longitudeDest = place.geometry.location.lng();
   }
 }
-export interface marker {
-  id: number;
-  name: object;
-  lat: number;
-  lng: number;
-  draggable: boolean;
-}
-
 // export interface rating {
 //   itemId: number;
 //   ratingName: string;
 //   rating: number;
 // }
-
-export interface directions {
-  oName: string;
-  lat: number;
-  lng: number;
-  dName: string;
-}

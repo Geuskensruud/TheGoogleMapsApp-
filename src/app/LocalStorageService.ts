@@ -1,13 +1,13 @@
 import { Inject, Injectable } from '@angular/core';
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 import {User} from "./User";
-// import {Bier} from "./Bier";
+import {Marker} from './Marker';
 
 @Injectable()
 export class LocalStorageService {
 
   signedInUser: User;
-  // bier: Bier;
+  marker: Marker;
 
   constructor(@Inject(LOCAL_STORAGE) private storage: StorageService) { }
 
@@ -19,12 +19,12 @@ export class LocalStorageService {
     return this.storage.get('signedInUser');
   }
 
-  // public storeBier(bier: Bier): void {
-  //   this.storage.set('bier', bier);
-  // }
+  public storeMarker(marker: Marker): void {
+    this.storage.set('marker', marker);
+  }
 
-  // public getStoredBier(): Bier {
-  //   return this.storage.get('bier');
-  // }
+  public getStoredMarker(): Marker {
+    return this.storage.get('marker');
+  }
 
 }

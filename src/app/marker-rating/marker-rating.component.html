@@ -1,0 +1,77 @@
+<p>{{model.rating}}</p>
+<p>{{model.review}}</p>
+
+<form>
+  <label>Review</label>
+  <input type="text" class="form-control" required #review>
+  <button>
+    <a class="reviewMarker" (click)="deleteMarker(m.id)">review</a>
+  </button>
+  <button type="button" id="buttonStars" type="submit" (click)="saveMarkerRating(review.value)">Submit</button>
+</form>
+
+<!--<div class="container-fluid bg-light py-3">-->
+<!--<form id="contact-form" method="post" action="contact.php" role="form">-->
+<!--<div class="messages"></div>-->
+<!--<div class="controls">-->
+<!--<div class="row">-->
+<!--<div class="col-sm-4">-->
+<!--<div class="form-group">-->
+<!--<label for="form_name">Name *</label>-->
+<!--<input id="form_name" type="text" name="surname" class="form-control" placeholder="Please enter your name *" required="required" data-error="name is required.">-->
+<!--<div class="help-block with-errors"></div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="col-sm-4">-->
+<!--<div class="form-group">-->
+<!--<label> Location *</label>-->
+<!--<input class="form-control" type="text" [(ngModel)]="address" (setAddress)="getAddress($event)" name="addressDirection" googleplace>-->
+<!--<div class="help-block with-errors"></div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="col-sm-4">-->
+<!--<div class="form-group">-->
+<!--<label>Rating *</label>-->
+<!--<br>-->
+<fieldset class="rating"required #rating>
+<input type="radio" value="5" [checked]="model.rating===5" />
+<label title="Great" (click)='model.rating=5'>5 stars</label>
+
+<input type="radio"  value="4" [checked]="model.rating===4" />
+<label title="Good" (click)='model.rating=4'>4 stars</label>
+
+<input type="radio"  value="3" [checked]="model.rating===3" />
+<label title="OK" (click)='model.rating=3'>3 stars</label>
+
+<input type="radio"  value="2" [checked]="model.rating===2" />
+<label title="Poor" (click)='model.rating=2'>2 stars</label>
+
+<input type="radio"  value="1" [checked]="model.rating===1" />
+<label title="Abysmal" (click)='model.rating=1'>1 star</label>
+</fieldset>
+<!--<div class="help-block with-errors"></div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="clearfix"></div>-->
+
+<!--<div class="row">-->
+<!--<div class="col-md-12">-->
+<!--<div class="form-group">-->
+<!--<label for="form_message">Message *</label>-->
+<!--<textarea id="form_message" name="message" class="form-control" placeholder="Message for me *" rows="4" required="required" data-error="send a message."></textarea>-->
+<!--<div class="help-block with-errors"></div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="col-md-12">-->
+<!--<input type="submit" class="btn btn-warning btn-send" value="Send message">-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="row">-->
+<!--<div class="col-md-12">-->
+<!--<p class="text-muted"><strong>*</strong> These fields are required.</p>-->
+<!--</div>-->
+<!--</div>-->
+<!--</form>-->
+<!--</div>-->

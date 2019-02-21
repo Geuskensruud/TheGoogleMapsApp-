@@ -13,7 +13,7 @@ import {UserServiceService} from "../user-service.service";
 
 export class UserFormComponent implements OnInit{
 
-  model = new User(0, '', null, '', '', 0);
+  model = new User(0, '', null, '', '');
   isnewUser = true;
   submitted = false;
 
@@ -25,7 +25,7 @@ export class UserFormComponent implements OnInit{
   }
 
   newUser() {
-    this.model = new User(0,'',0,'','', 0);
+    this.model = new User(0,'',0,'','');
   }
 
   checkPassword(pass: String): boolean {

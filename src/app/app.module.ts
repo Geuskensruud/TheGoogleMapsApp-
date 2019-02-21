@@ -14,6 +14,7 @@ import { GoogleMapsComponent } from './google-maps/google-maps.component';
 import {StorageServiceModule} from 'ngx-webstorage-service';
 import {LocalStorageService} from './LocalStorageService';
 import {MDBBootstrapModule} from 'angular-bootstrap-md';
+import { MarkerRatingComponent } from './marker-rating/marker-rating.component';
 
 @NgModule({
   imports: [
@@ -34,7 +35,7 @@ import {MDBBootstrapModule} from 'angular-bootstrap-md';
   ],
   exports: [GoogleplaceDirective],
   providers: [LocalStorageService],
-  declarations: [ AppComponent, GoogleplaceDirective, LoginComponent, UserFormComponent, GoogleMapsComponent],
+  declarations: [ AppComponent, GoogleplaceDirective, LoginComponent, UserFormComponent, GoogleMapsComponent, MarkerRatingComponent],
   bootstrap: [ AppComponent ]
 })
 export class AppModule{}
