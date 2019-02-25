@@ -34,11 +34,13 @@
     (dragEnd)="markerDragEnd(m, $event)">
     <agm-info-window>
       {{m.address}}
+      {{m.id}}
       <app-marker-rating></app-marker-rating>
       <br>
       <button>
         <a class="deleteMarker" (click)="deleteMarker(m.id)">Delete</a>
       </button>
+        <button type="button" id="buttonStars" type="submit" (click)="saveMarkerRating(m.id)">Submit</button>
     </agm-info-window>
   </agm-marker>
 </agm-map>

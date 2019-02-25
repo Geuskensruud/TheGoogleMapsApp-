@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {MarkerRatingService} from '../marker-rating.service';
 import {MarkerRating} from '../MarkerRating';
 import {LocalStorageService} from '../LocalStorageService';
+import {MarkerService} from '../marker.service';
 import {User} from '../User';
 
 @Component({
@@ -23,14 +24,15 @@ export class MarkerRatingComponent implements OnInit {
     this.submitted = true;
     this.invalid = false;
   }
-  saveMarkerRating(review: String){
-    this.model.review = review;
+  saveMarkerRating(model){
+    console.log(model);
+    this.model.review = model.review;
     // this.model.rating = rating;
     // this.model.photo = photo;
     // this.model.User = this.storage.getStoredUser();
     console.log(this.model.user);
     this.model.marker = this.storage.getStoredMarker();
-    console.log(this.model);
+    console.log(this.model.marker);
     if (this.model.user.id = 0 && this.model.marker.id > 0){
       console.log(this.model);
       this.markerRatingService.saveMarkerRating(this.model).subscribe();

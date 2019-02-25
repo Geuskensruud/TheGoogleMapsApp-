@@ -3,6 +3,9 @@ import {LocationService} from '../location-service.service';
 import {MarkerService} from '../marker.service';
 import {Marker} from '../Marker';
 import {MarkerRating} from '../MarkerRating';
+import {MarkerRatingService} from '../marker-rating.service';
+import {LocalStorageService} from '../LocalStorageService';
+
 
 
 // import {RatingService} from './rating.service';
@@ -28,6 +31,9 @@ export class GoogleMapsComponent implements OnInit{
   @Input() itemId: number;
   @Output() ratingClick: EventEmitter<any> = new EventEmitter<any>();
   ratingName: string;
+  model: MarkerRating = new MarkerRating(0,this.storage.getStoredUser(),this.storage.getStoredMarker(),1,'');
+  submitted = false;
+  invalid = false;
 
   markers: Marker[] = [
     {id: 0, address: this.address, lat: 52.509317, lng: 6.065663, draggable: true},
@@ -38,7 +44,7 @@ export class GoogleMapsComponent implements OnInit{
   // ];
   location: Location[] = [
   ];
-  constructor(private markerService: MarkerService, private locationService: LocationService) {
+  constructor(private markerService: MarkerService, private locationService: LocationService, private markerRatingService: MarkerRatingService, private storage: LocalStorageService) {
   }
   ngOnInit() {
     this.markerService.getMarker().subscribe(
@@ -120,6 +126,25 @@ export class GoogleMapsComponent implements OnInit{
       }
     );
 
+  }
+  submit(){
+    this.submitted = true;
+    this.invalid = false;
+  }
+  saveMarkerRating(m){
+    this.model.review = m.review;
+    // this.model.rating = rating;
+    // this.model.photo = photo;
+    this.model.user = this.storage.getStoredUser();
+    console.log(this.model.user);
+    this.model.marker = m;
+    if (this.model.user.id > 0 && m > 0){
+      console.log(m);
+      this.markerRatingService.saveMarkerRating(m).subscribe();
+      this.submit();
+    }else{
+      this.invalid = true;
+    }
   }
   deleteMarker(id: any) {
     console.log('deleted marker from david his head!');

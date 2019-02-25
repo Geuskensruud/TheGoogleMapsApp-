@@ -4,6 +4,7 @@ import {MarkerRating} from './MarkerRating';
 import {Observable, of} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {LocalStorageService} from "./LocalStorageService";
+import {GoogleMapsComponent} from './google-maps/google-maps.component';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class MarkerRatingService {
 
   saveMarkerRating(model: MarkerRating){
     return this.http.post('http://localhost:8080/rating', model).pipe(
-      catchError(this.handleError<MarkerRating>(`saveRating`))
+      catchError(this.handleError<GoogleMapsComponent>(`saveRating`))
     );
   }
 

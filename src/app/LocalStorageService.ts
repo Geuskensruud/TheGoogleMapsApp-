@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 import {User} from "./User";
 import {Marker} from './Marker';
+import {MarkerService} from './marker.service';
 
 @Injectable()
 export class LocalStorageService {
